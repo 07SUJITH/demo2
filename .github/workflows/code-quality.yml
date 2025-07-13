@@ -43,6 +43,7 @@ jobs:
           body: |
             This pull request contains automatic formatting and linting fixes
             applied by GitHub Actions.
+          base: main
           token: ${{ secrets.GITHUB_TOKEN }}
           delete-branch: true
           signoff: false
