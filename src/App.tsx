@@ -51,7 +51,7 @@ const App = () => {
       icon: <Sparkles className="w-6 h-6" />,
       title: "Tailwind CSS",
       description: "Utility-first CSS framework for rapid UI development",
-      color: "from-orange-500 to-red-500",
+      color: "from-orange-600 to-red-500",
     },
     {
       icon: <Settings className="w-6 h-6" />,
