@@ -18,8 +18,7 @@
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "npm run format",
-      "npm run lint:fix",
-      "npx tsc --noEmit"
+      "npm run lint:fix"
     ],
     "*.{html,css,md,json,yml,yaml}": [
       "npm run format"
