@@ -13,6 +13,8 @@ import {
 import { useEffect, useState } from "react";
 
 import { ModeToggle } from "./components/mode-toggle";
+// test purpose change import order
+// husky should automatically run the lint and format commands
 import { Button } from "./components/ui/button";
 
 const App = () => {
