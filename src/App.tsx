@@ -10,10 +10,10 @@ import {
   Star,
   Zap,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { ModeToggle } from "./components/mode-toggle";
 import { Button } from "./components/ui/button";
-import { useEffect, useState } from "react";
 
 const App = () => {
   const [isVisible, setIsVisible] = useState(false);
