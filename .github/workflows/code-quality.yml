@@ -1,10 +1,9 @@
-# code-quality.yml
 name: Code Quality & Format Check
 
 on:
-  pull_request:
-    branches: [main]
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
 
 jobs:
@@ -14,6 +13,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,11 +26,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check Prettier formatting
-        run: npm run format:check
-
-      - name: Check ESLint (including import sorting)
-        run: npm run lint -- --max-warnings 0
-
-      - name: TypeScript compilation check
+      - name: TypeScript Check
         run: npx tsc --noEmit
+
+      - name: Run auto-fix (format + lint)
+        run: |
+          npm run format
+          npm run lint:fix
+
+      - name: Commit & Create Pull Request for Auto-Fixes
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: auto-fix formatting and linting"
+          branch: "chore/autofix"
+          title: "chore: auto-fix formatting and linting"
+          body: |
+            This pull request contains automatic formatting and linting fixes
+            applied by GitHub Actions.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          delete-branch: true
+          signoff: false
+
+      - name: Final quality checks (strict)
+        run: |
+          npm run format:check
+          npm run lint -- --max-warnings 0
+          npx tsc --noEmit
