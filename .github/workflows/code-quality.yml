@@ -1,10 +1,11 @@
+# code-quality.yml
 name: Code Quality & Format Check
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
+  push:
+    branches: [main]
 
 jobs:
   code-quality:
@@ -19,20 +20,15 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
-          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Check Prettier formatting
-        run: |
-          npm run format:check
+        run: npm run format:check
 
       - name: Check ESLint (including import sorting)
-        run: |
-          npm run lint -- --max-warnings 0
+        run: npm run lint -- --max-warnings 0
 
       - name: TypeScript compilation check
-        run: |
-          npx tsc --noEmit
+        run: npx tsc --noEmit
