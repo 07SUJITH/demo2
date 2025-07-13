@@ -1,0 +1,42 @@
+name: Code Quality & Format Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Check Prettier formatting
+        run: |
+          cd frontend
+          npm run format:check
+
+      - name: Check ESLint (including import sorting)
+        run: |
+          cd frontend
+          npm run lint -- --max-warnings 0
+
+      - name: TypeScript compilation check
+        run: |
+          cd frontend
+          npx tsc --noEmit
