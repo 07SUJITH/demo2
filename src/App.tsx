@@ -155,6 +155,9 @@ jobs:
                 variant="outline"
                 size="lg"
                 className="px-8 py-6 text-lg font-semibold"
+                onclick={() =>
+                  window.open("https://github.com/07SUJITH/demo2", "_blank")
+                }
               >
                 <Github className="w-5 h-5 mr-2" />
                 View Source
