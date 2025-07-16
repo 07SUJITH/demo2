@@ -2,331 +2,128 @@
 
 A modern React application built with TypeScript, Vite, and strict code quality standards.
 
+---
+
 ## 🚀 Quick Start
 
-### Prerequisites
+1. **Clone the repository**
 
-- Node.js 18+ and npm
-- Git
+   ```bash
+   git clone <repository-url> frontend
+   cd frontend
+   ```
 
-### Installation
+2. **Install dependencies**
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd jwt-auth-test/frontend
+   ```bash
+   npm install
+   ```
 
-# Install dependencies
-npm install
+3. **Start development server**
 
-# Start development server
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 
-Visit `http://localhost:5173` to see the application.
+4. **Build for production**
 
-## 📝 Available Scripts
+   ```bash
+   npm run build
+   ```
 
-| Command                | Description                     |
-| ---------------------- | ------------------------------- |
-| `npm run dev`          | Start development server        |
-| `npm run build`        | Build for production            |
-| `npm run preview`      | Preview production build        |
-| `npm run lint`         | Run ESLint checks               |
-| `npm run lint:fix`     | Fix ESLint issues automatically |
-| `npm run format`       | Format all files with Prettier  |
-| `npm run format:check` | Check if files are formatted    |
-| `npm run check-all`    | Run all checks (format + lint)  |
-| `npm run fix-all`      | Fix all issues (format + lint)  |
+5. **Preview production build**
 
-## 🛠️ Development Setup
+   ```bash
+   npm run preview
+   ```
 
-### VS Code (Recommended)
+---
 
-1. **Install required extensions:**
-   - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-   - [TypeScript and JavaScript Language Features](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-next)
+## 🛡️ Code Quality & Workflow
 
-2. **VS Code will automatically:**
-   - Format code with Prettier on save
-   - Fix ESLint issues on save
-   - Sort imports automatically
-   - Show TypeScript errors inline
+This project enforces code quality with **Prettier**, **ESLint**, **TypeScript**, **Husky**, **lint-staged**, and **GitHub Actions**.
+
+### GitHub Workflow
+
+On every push and pull request to `main`, the following checks are run automatically:
+
+- TypeScript compilation (`npx tsc --noEmit`)
+- Formatting (`npm run format:check`)
+- Linting with auto import sort enforced (`npm run lint -- --max-warnings 0`)
+
+### Local Commit Checks (Husky + lint-staged)
+
+Before you commit, **Husky** runs:
+
+- Prettier formatting (`npm run format`)
+- ESLint auto-fix **including import sorting** (`npm run lint:fix`)
+
+on staged files. If the checks fail, your commit will be blocked until you fix the issues.
+
+#### Auto Import Sort
+
+Import statements are **automatically sorted** using the [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort) plugin.  
+This is enforced both locally (during commits) and in CI.
+
+---
+
+## 💻 Recommended Editor Setup
+
+### VS Code Extensions
+
+- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- TypeScript and JavaScript Language Features (built in)
+
+**VS Code will automatically:**
+
+- Format code with Prettier on save
+- Fix ESLint issues (including import sorting) on save
+- Show TypeScript errors inline
 
 ### Other Editors
 
 Configure your editor to:
 
 - Use Prettier for formatting
-- Run ESLint for linting
+- Run ESLint for linting and import sorting
 - Format on save
 - Auto-fix on save
 
-## 📋 Code Quality Standards
-
-### Automatic Formatting & Linting
-
-This project enforces strict code quality standards:
-
-- **Prettier** handles code formatting (spacing, semicolons, quotes, etc.)
-- **ESLint** handles code quality and import sorting
-- **TypeScript** ensures type safety
-
-### Import Sorting
-
-Imports are automatically sorted by `eslint-plugin-simple-import-sort`:
-
-```typescript
-// ✅ Correct order
-import React from "react"; // External packages first
-import { useState } from "react"; // React hooks
-import axios from "axios"; // Other external packages
-
-import { Button } from "../ui"; // Internal components
-import { utils } from "../utils"; // Internal utilities
-
-import "./Component.css"; // CSS imports last
-```
-
-### Code Style Examples
-
-```typescript
-// ✅ Good - Proper TypeScript interfaces
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-// ✅ Good - Functional components with TypeScript
-const UserProfile: React.FC<{ user: User }> = ({ user }) => {
-  const [isEditing, setIsEditing] = useState(false);
-
-  return (
-    <div className="user-profile">
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-    </div>
-  );
-};
-
-// ✅ Good - Custom hooks
-const useUserData = (userId: number) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Hook logic here
-
-  return { user, loading };
-};
-```
-
-## 🔧 Before Submitting a Pull Request
-
-### 1. Run Quality Checks
-
-```bash
-# Check formatting
-npm run format:check
-
-# Check linting
-npm run lint
-
-# Run all checks
-npm run check-all
-```
-
-### 2. Fix Issues Automatically
-
-```bash
-# Fix all formatting and linting issues
-npm run fix-all
-```
-
-### 3. Ensure Build Works
-
-```bash
-# Build the project
-npm run build
-```
-
-## 🏗️ Project Structure
-
-```
-frontend/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/         # Page components
-│   ├── hooks/         # Custom React hooks
-│   ├── utils/         # Utility functions
-│   ├── types/         # TypeScript type definitions
-│   ├── styles/        # Global styles
-│   └── main.tsx       # Application entry point
-├── public/            # Static assets
-├── .github/           # GitHub Actions workflows
-├── .vscode/           # VS Code settings
-├── eslint.config.js   # ESLint configuration
-├── .prettierrc        # Prettier configuration
-├── tsconfig.json      # TypeScript configuration
-└── vite.config.ts     # Vite configuration
-```
-
-## 📐 Coding Guidelines
-
-### TypeScript
-
-- Use proper TypeScript types for all props and state
-- Avoid `any` type - use proper interfaces or types
-- Use optional chaining and nullish coalescing when appropriate
-
-```typescript
-// ✅ Good
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  variant?: 'primary' | 'secondary';
-}
-
-// ❌ Bad
-const Button = (props: any) => { ... }
-```
-
-### React Components
-
-- Use functional components with hooks
-- Use descriptive component names
-- Keep components small and focused
-- Use proper prop destructuring
-
-```typescript
-// ✅ Good
-const UserCard: React.FC<{ user: User; onEdit: () => void }> = ({
-  user,
-  onEdit
-}) => {
-  return (
-    <div className="user-card">
-      <h3>{user.name}</h3>
-      <button onClick={onEdit}>Edit</button>
-    </div>
-  );
-};
-```
-
-### State Management
-
-- Use `useState` for local component state
-- Use `useReducer` for complex state logic
-- Consider context for global state
-
-### Error Handling
-
-- Use try-catch blocks for async operations
-- Provide user-friendly error messages
-- Log errors appropriately
-
-## 🚨 Common Issues & Solutions
-
-### Import Sorting Issues
-
-```bash
-# Fix import sorting automatically
-npm run lint:fix
-```
-
-### Formatting Issues
-
-```bash
-# Fix formatting automatically
-npm run format
-```
-
-### TypeScript Errors
-
-```bash
-# Check TypeScript compilation
-npx tsc --noEmit
-```
-
-### Build Issues
-
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-```
-
-## 🔄 CI/CD Pipeline
-
-Every Pull Request automatically runs:
-
-- ✅ **Prettier formatting check** - Ensures consistent code formatting
-- ✅ **ESLint with import sorting** - Ensures code quality and sorted imports
-- ✅ **TypeScript compilation** - Ensures no type errors
-- ✅ **Build verification** - Ensures project builds successfully
-
-**All checks must pass before merging.**
-
-## 📚 Tech Stack
-
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **GitHub Actions** - CI/CD pipeline
-
-## 🤝 Contributing
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes following the code standards**
-4. **Run quality checks**: `npm run check-all`
-5. **Fix any issues**: `npm run fix-all`
-6. **Commit your changes**: `git commit -m 'Add amazing feature'`
-7. **Push to the branch**: `git push origin feature/amazing-feature`
-8. **Open a Pull Request**
-
-### Pull Request Guidelines
-
-- Provide a clear description of changes
-- Include screenshots for UI changes
-- Ensure all CI/CD checks pass
-- Keep PRs focused and atomic
-- Follow the existing code style
-
-## Troubleshooting
-
-### VS Code Not Formatting on Save
-
-1. Check if Prettier extension is installed and enabled
-2. Verify `.vscode/settings.json` exists in the project
-3. Reload VS Code window
-
-### ESLint Errors in VS Code
-
-1. Check if ESLint extension is installed
-2. Reload VS Code window
-3. Run `npm run lint:fix` in terminal
-
-### Import Sorting Not Working
-
-1. Ensure `eslint-plugin-simple-import-sort` is installed
-2. Check ESLint configuration
-3. Run `npm run lint:fix`
-
-## Support
-
-If you encounter any issues:
-
-1. Check this README first
-2. Run `npm run fix-all` to fix common issues
-3. Check the GitHub Issues page
-4. Ask for help in team discussions
+---
+
+## 📝 Scripts
+
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run preview` — Preview production build
+- `npm run lint` — Run ESLint (including import sort)
+- `npm run lint:fix` — ESLint with auto-fix (including import sort)
+- `npm run format` — Format code with Prettier
+- `npm run format:check` — Check formatting only
+- `npm run check-all` — Run all code quality checks
+- `npm run fix-all` — Apply all auto-fixes
 
 ---
 
-**Happy coding! 🎉**
+## 🤝 Contributing
 
-_Remember: Quality code is not just about functionality - it's about maintainability, readability, and team collaboration._
+1. **Fork & clone** the repository.
+2. **Create a new branch** for your feature or fix.
+3. **Write code & commit** (Husky will check code quality).
+4. **Push & open a pull request** to `main`.
+
+All pull requests must pass code quality checks before merging.
+
+---
+
+## 📦 Tech Stack
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [ESLint](https://eslint.org/) + [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react), [eslint-plugin-react-hooks](https://github.com/facebook/react), [eslint-plugin-simple-import-sort](https://github.com/lydell/eslint-plugin-simple-import-sort)
+- [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+- [lint-staged](https://github.com/okonet/lint-staged)
