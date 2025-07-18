@@ -166,7 +166,7 @@ export const LandingPage = () => {
               <Code className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-[#E7A4B8] to-[#E7A4B8]/90 bg-clip-text text-transparent">
-              React Auth Demo
+              AuthFlow
             </span>
           </div>
           <div className="flex items-center space-x-4">
