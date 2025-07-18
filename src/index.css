@@ -3,9 +3,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Apply Architects Daughter font to the entire page */
+/* Apply Source Serif Pro font to the entire page */
 body {
-  font-family: "Architects Daughter", sans-serif;
+  font-family: "Source Serif Pro", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -181,4 +181,40 @@ body {
     backdrop-filter: none;
     filter: none;
   }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: var(--radius-sm);
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted-foreground) transparent;
+}
+
+/* Ensure scrollbar blends with theme */
+.light ::-webkit-scrollbar-track {
+  background-color: oklch(0.95 0.01 300);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: oklch(0.23 0.02 292);
 }
