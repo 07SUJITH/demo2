@@ -4,13 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
   Code,
-  GitBranch,
   Github,
   Infinity as InfinityIcon,
-  Layout,
-  Settings,
   ShieldCheck,
-  Sparkles,
   Star,
   Zap,
 } from "lucide-react";
@@ -24,7 +20,6 @@ import { getApiEndpoints } from "../../utils/apiEndpointsData";
 
 export const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,9 +33,6 @@ export const LandingPage = () => {
     }
 
     setIsVisible(true);
-    const interval = setInterval(() => {
-      setActiveFeature(prev => (prev + 1) % 6);
-    }, 3000);
 
     // GSAP animations
     gsap.registerPlugin(ScrollTrigger);
@@ -112,56 +104,17 @@ export const LandingPage = () => {
 
     // Ensure measurements are up-to-date
     ScrollTrigger.refresh();
-
-    return () => clearInterval(interval);
   }, []);
-
-  const features = [
-    {
-      icon: <Code className="w-6 h-6" />,
-      title: "React Router",
-      description: "Modern client-side routing with seamless navigation",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Zustand State Management",
-      description:
-        "Lightweight, intuitive state management without boilerplate",
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: <Layout className="w-6 h-6" />,
-      title: "Shadcn UI Components",
-      description: "Beautiful, accessible UI components built with Radix UI",
-      color: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: <Sparkles className="w-6 h-6" />,
-      title: "Tailwind CSS",
-      description: "Utility-first CSS framework for rapid UI development",
-      color: "from-orange-600 to-red-500",
-    },
-    {
-      icon: <Settings className="w-6 h-6" />,
-      title: "ESLint & Prettier",
-      description: "Automated code formatting and quality enforcement",
-      color: "from-indigo-500 to-purple-500",
-    },
-    {
-      icon: <GitBranch className="w-6 h-6" />,
-      title: "GitHub Workflows",
-      description: "Automated CI/CD with code quality checks",
-      color: "from-teal-500 to-blue-500",
-    },
-  ];
 
   return (
     <div className="min-h-screen w-full bg-white dark:bg-neutral-950 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#111111_1px,transparent_1px),linear-gradient(to_bottom,#111111_1px,transparent_1px)] bg-[size:6rem_4rem]">
       <div className="min-h-screen overflow-hidden  bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))] bg-fixed">
         {/* Header */}
         <header className="relative z-10 flex justify-between items-center p-6">
-          <div className="flex items-center space-x-2">
+          <div
+            className="flex items-center space-x-2"
+            style={{ fontFamily: "Architects Daughter" }}
+          >
             <div className="w-8 h-8 bg-gradient-to-r from-[#E7A4B8] to-[#E7A4B8]/80 rounded-lg flex items-center justify-center">
               <Code className="w-5 h-5 text-white" />
             </div>
@@ -170,7 +123,14 @@ export const LandingPage = () => {
             </span>
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="hidden sm:flex">
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden sm:flex"
+              onClick={() =>
+                window.open("https://github.com/07SUJITH/AuthFlow", "_blank")
+              }
+            >
               <Github className="w-4 h-4 mr-2" />
               View on GitHub
             </Button>
@@ -229,7 +189,7 @@ export const LandingPage = () => {
         </section>
 
         {/* Security Features Section */}
-        <section id="security-features" className="w-full mx-auto px-6 py-20">
+        <section id="features" className="w-full mx-auto px-6 py-20">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
               Advanced Security Features
@@ -325,12 +285,6 @@ export const LandingPage = () => {
                         <td className="py-2">Per Account</td>
                         <td className="py-2">20 minutes</td>
                       </tr>
-                      <tr className="border-t">
-                        <td className="py-2">Critical Actions</td>
-                        <td className="py-2">1/30sec</td>
-                        <td className="py-2">Sensitive Endpoints</td>
-                        <td className="py-2">30 minutes</td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -420,44 +374,6 @@ export const LandingPage = () => {
                 critical events
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Features Grid */}
-        <section id="features" className="w-full mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              Key Technical Features
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Everything you need for secure user authentication
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`gsap-feature group relative p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm transition-all duration-500 hover:shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/20 hover:-translate-y-2 ${
-                  activeFeature === index
-                    ? "ring-2 ring-blue-500/20 shadow-lg"
-                    : ""
-                }`}
-              >
-                <div
-                  className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {feature.description}
-                </p>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            ))}
           </div>
         </section>
 
