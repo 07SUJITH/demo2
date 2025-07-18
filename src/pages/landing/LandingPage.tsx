@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -5,8 +6,10 @@ import {
   Code,
   GitBranch,
   Github,
+  Infinity as InfinityIcon,
   Layout,
   Settings,
+  ShieldCheck,
   Sparkles,
   Star,
   Zap,
@@ -176,7 +179,10 @@ export const LandingPage = () => {
         </header>
 
         {/* Hero Section */}
-        <section className="relative z-10 w-full  mx-auto px-6 pt-20 pb-16">
+        <section
+          className="relative z-10 w-full  mx-auto px-6 pt-20 pb-16"
+          style={{ fontFamily: "Architects Daughter" }}
+        >
           <div
             className={`gsap-hero text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
@@ -515,22 +521,73 @@ export const LandingPage = () => {
             </table>
           </div>
         </section>
-        <section className="py-20 bg-gradient-to-r from-blue-500 to-purple-600">
-          <div className="w-full  mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to get started?
-            </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of developers who trust our authentication system
-            </p>
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => (window.location.href = "/register")}
+        <section className="relative py-24 overflow-hidden bg-gradient-to-br from-primary/90 via-primary to-primary/80 dark:from-primary/90 dark:via-primary dark:to-primary/80">
+          {/* Decorative elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-1/2 -right-1/4 w-full h-full bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-full mix-blend-overlay"></div>
+            <div className="absolute -bottom-1/2 -left-1/4 w-full h-full bg-gradient-to-br from-transparent via-white/5 to-transparent rounded-full mix-blend-overlay"></div>
+          </div>
+
+          <div className="relative max-w-6xl mx-auto px-6 text-center">
+            <motion.h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
             >
-              Create Free Account
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+              Ready to get started?
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex flex-col sm:flex-row justify-center gap-4"
+            >
+              <Button
+                size="lg"
+                className="bg-white text-primary hover:bg-gray-100 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                onClick={() => (window.location.href = "/register")}
+              >
+                Get Started for Free
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-transparent border-2 border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                onClick={() => {
+                  const element = document.getElementById("features");
+                  element?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Learn More
+              </Button>
+            </motion.div>
+
+            <motion.div
+              className="mt-12 flex flex-wrap justify-center gap-6 text-white/60 text-sm"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="flex items-center">
+                <ShieldCheck className="w-5 h-5 mr-2 text-emerald-400" />
+                <span>Secure & Reliable</span>
+              </div>
+              <div className="flex items-center">
+                <Zap className="w-5 h-5 mr-2 text-amber-400" />
+                <span>Lightning Fast</span>
+              </div>
+              <div className="flex items-center">
+                <InfinityIcon className="w-5 h-5 mr-2 text-blue-400" />
+                <span>Scalable</span>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>
